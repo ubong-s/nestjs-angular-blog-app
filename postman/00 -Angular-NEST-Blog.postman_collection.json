@@ -63,7 +63,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Uboho2\"\r\n}",
+							"raw": "{\r\n    \"role\":\"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -71,7 +71,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/users/5",
+							"raw": "http://localhost:5000/users/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -79,7 +79,37 @@
 							"port": "5000",
 							"path": [
 								"users",
-								"5"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Role",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\" : \"editor\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/users/4/role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"4",
+								"role"
 							]
 						}
 					},
@@ -88,6 +118,16 @@
 				{
 					"name": "Get All Users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiVWJvbmciLCJ1c2VybmFtZSI6InVic2x5IiwiZW1haWwiOiJ1Ym9uZ0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjg4NjQ3NDQ5LCJleHAiOjE2ODg2NDc1NDl9.kgWibLQnpYGa3A5P_Gbt2Zbf8Ut3XcSHULjYQAmaEIM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -111,7 +151,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/users/5",
+							"raw": "http://localhost:5000/users/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -119,7 +159,7 @@
 							"port": "5000",
 							"path": [
 								"users",
-								"5"
+								"1"
 							]
 						}
 					},
