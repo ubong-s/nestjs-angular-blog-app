@@ -1,4 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -6,12 +15,36 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
-  constructor(private authService: AuthenticationService) {}
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
 
-  login() {
+  constructor(
+    private authService: AuthenticationService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, [
+        Validators.required,
+        Validators.email,
+        Validators.minLength(6),
+      ]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+    });
+  }
+
+  onSubmit() {
+    if (this.loginForm.invalid) {
+      return;
+    }
     this.authService
-      .login('ubong@gmail.com', 'secret')
-      .subscribe((data) => console.log('Success'));
+      .login(this.loginForm.value)
+      .pipe(map((token) => this.router.navigate(['admin'])))
+      .subscribe();
   }
 }
