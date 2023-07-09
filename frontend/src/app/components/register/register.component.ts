@@ -10,32 +10,32 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
-// class CustomValidators {
-//   static passwordContainsNumber(control: AbstractControl): ValidationErrors {
-//     const regex = /\d/;
+class CustomValidators {
+  static passwordContainsNumber(control: AbstractControl): ValidationErrors {
+    const regex = /\d/;
 
-//     if (regex.test(control.value) && control.value !== null) {
-//       return null;
-//     } else {
-//       return { passwordInvalid: true };
-//     }
-//   }
+    if (regex.test(control.value) && control.value !== null) {
+      return {};
+    } else {
+      return { passwordInvalid: true };
+    }
+  }
 
-//   static passwordsMatch(control: AbstractControl): ValidationErrors {
-//     const password = control.get('password').value;
-//     const confirmPassword = control.get('confirmPassword').value;
+  static passwordsMatch(control: AbstractControl): ValidationErrors {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
 
-//     if (
-//       password === confirmPassword &&
-//       password !== null &&
-//       confirmPassword !== null
-//     ) {
-//       return null;
-//     } else {
-//       return { passwordsNotMatching: true };
-//     }
-//   }
-// }
+    if (
+      password === confirmPassword &&
+      password !== null &&
+      confirmPassword !== null
+    ) {
+      return {};
+    } else {
+      return { passwordsNotMatching: true };
+    }
+  }
+}
 
 @Component({
   selector: 'app-register',
@@ -65,13 +65,13 @@ export class RegisterComponent implements OnInit {
           [
             Validators.required,
             Validators.minLength(3),
-            // CustomValidators.passwordContainsNumber,
+            CustomValidators.passwordContainsNumber,
           ],
         ],
         confirmPassword: [null, [Validators.required]],
       },
       {
-        // validators: CustomValidators.passwordsMatch,
+        validators: CustomValidators.passwordsMatch,
       }
     );
   }
