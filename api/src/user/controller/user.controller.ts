@@ -57,7 +57,7 @@ export class UserController {
     return this.userService.paginate({
       page,
       limit,
-      route: 'http://localhost:5000/users',
+      route: 'http://localhost:5000/api/users',
     });
   }
 
