@@ -7,11 +7,13 @@ interface LoginForm {
   password: string;
 }
 
-interface User {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
+export interface User {
+  id?: number;
+  name?: string;
+  username?: string;
+  email?: string;
+  password?: string;
+  role?: string;
 }
 
 @Injectable({
