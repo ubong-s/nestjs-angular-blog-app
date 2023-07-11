@@ -9,6 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
+  filterValue!: string;
   dataSource!: UserData;
   pageEvent!: PageEvent;
   displayedColumns: string[] = ['id', 'name', 'username', 'email', 'role'];
@@ -33,10 +34,23 @@ export class UsersComponent implements OnInit {
     let page = event.pageIndex;
     let size = event.pageSize;
 
-    page = page + 1;
+    if (!this.filterValue) {
+      page = page + 1;
+      this.usersService
+        .findAll(page, size)
+        .pipe(map((userData: UserData) => (this.dataSource = userData)))
+        .subscribe();
+    } else {
+      this.usersService
+        .paginateByName(page, size, this.filterValue)
+        .pipe(map((userData: UserData) => (this.dataSource = userData)))
+        .subscribe();
+    }
+  }
 
+  findByName(username: string) {
     this.usersService
-      .findAll(page, size)
+      .paginateByName(0, 10, username)
       .pipe(map((userData: UserData) => (this.dataSource = userData)))
       .subscribe();
   }
