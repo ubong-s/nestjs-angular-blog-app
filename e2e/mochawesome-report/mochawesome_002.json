@@ -1,0 +1,142 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-07-11T12:59:10.071Z",
+    "end": "2023-07-11T12:59:21.767Z",
+    "duration": 11696,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "bccefdb6-799f-4c6e-b775-e8d3aa9b3b1d",
+      "title": "",
+      "fullFile": "cypress\\e2e\\users.cy.js",
+      "file": "cypress\\e2e\\users.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "cc5a49d2-692e-4235-8233-5eb0dbfb4353",
+          "title": "Users page",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should load user table",
+              "fullTitle": "Users page should load user table",
+              "timedOut": null,
+              "duration": 5351,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\ncy.get('[routerlink=\"users\"]').click();\ncy.get('[role=\"table\"]');",
+              "err": {},
+              "uuid": "3152e2ef-9759-420e-a5b9-7130b4e3810c",
+              "parentUUID": "cc5a49d2-692e-4235-8233-5eb0dbfb4353",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should load display right column names",
+              "fullTitle": "Users page should load display right column names",
+              "timedOut": null,
+              "duration": 2098,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/users');\ncy.contains('Id');\ncy.contains('Name');\ncy.contains('Email');\ncy.contains('Username');",
+              "err": {},
+              "uuid": "ac36defb-f7e8-4213-9d55-be4440bf1d0d",
+              "parentUUID": "cc5a49d2-692e-4235-8233-5eb0dbfb4353",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should filter users by Username",
+              "fullTitle": "Users page should filter users by Username",
+              "timedOut": null,
+              "duration": 3670,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/users');\ncy.get('label').click().type('ubong');\ncy.get('[role=\"table\"]').find('[role=\"row\"]').should('have.length', 4);",
+              "err": {},
+              "uuid": "878186c7-a3f8-4871-8ed3-886aa156ec66",
+              "parentUUID": "cc5a49d2-692e-4235-8233-5eb0dbfb4353",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "3152e2ef-9759-420e-a5b9-7130b4e3810c",
+            "ac36defb-f7e8-4213-9d55-be4440bf1d0d",
+            "878186c7-a3f8-4871-8ed3-886aa156ec66"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 11119,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
