@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:report": "node config.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,9 @@
     "@angular/common": "^16.1.4",
     "@angular/core": "^16.1.4",
     "@angular/platform-browser-dynamic": "^16.1.4",
-    "cypress": "^12.17.1"
+    "cypress": "^12.17.1",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0"
   }
 }
