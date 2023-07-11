@@ -10,14 +10,36 @@ import {
   Query,
   DefaultValuePipe,
   ParseIntPipe,
+  UseInterceptors,
+  UploadedFile,
+  Request,
+  Res,
 } from '@nestjs/common';
 import { UserService } from '../service/user.service';
 import { User, UserRole } from '../models/user.interface';
-import { Observable, map, catchError, of } from 'rxjs';
+import { Observable, map, catchError, of, tap, from } from 'rxjs';
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-guard';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { join, parse as pathParse } from 'path';
+import { v4 as uuidv4 } from 'uuid';
+import { Response } from 'express';
+
+export const storage = {
+  storage: diskStorage({
+    destination: './uploads/profileimages',
+    filename: (req, file, cb) => {
+      const filename: string =
+        pathParse(file.originalname).name.replace(/\s/g, '') + uuidv4();
+      const extension: string = pathParse(file.originalname).ext;
+
+      cb(null, `${filename}${extension}`);
+    },
+  }),
+};
 
 @Controller('users')
 export class UserController {
@@ -96,5 +118,31 @@ export class UserController {
     @Body() user: User,
   ): Observable<any> {
     return this.userService.updateRoleOfUser(+id, user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file', storage))
+  uploadFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+  ): Observable<object> {
+    const user: User = req.user;
+
+    return from(
+      this.userService
+        .updateOne(user.id, { profileImage: file.filename })
+        .pipe(map((user: User) => ({ profileImage: user.profileImage }))),
+    );
+  }
+
+  @Get('/profile-image/:imagename')
+  findProfileImage(
+    @Param('imagename') imagename: string,
+    @Res() res,
+  ): Observable<object> {
+    return of(
+      res.sendFile(join(process.cwd(), 'uploads/profileimages/' + imagename)),
+    );
   }
 }
